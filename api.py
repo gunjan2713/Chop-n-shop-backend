@@ -24,7 +24,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 3000
 # CORS middleware for frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  
+    allow_origins=["http://localhost:3000", "https://chop-n-shop-frontend-534070775559.us-central1.run.app"],  
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],

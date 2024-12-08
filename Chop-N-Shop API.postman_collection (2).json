@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "bc157adc-6106-4417-959a-cb8e31f05f4d",
+		"name": "Chop-N-Shop API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38984319",
+		"_collection_link": "https://galactic-trinity-959171.postman.co/workspace/469bcc78-ad60-42d9-8c0e-2b431fca103b/collection/38984319-bc157adc-6106-4417-959a-cb8e31f05f4d?action=share&source=collection_link&creator=38984319"
+	},
+	"item": [
+		{
+			"name": "All Items",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/items/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Item by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/items/503d2149-5181-4d2b-9b37-6b833e250cdd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"503d2149-5181-4d2b-9b37-6b833e250cdd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Item_name\": \"Banana\",\n    \"Store_name\": \"Trader Joe's\",\n    \"Price\": 1.99,\n    \"Ingredients\": [\"Banana\"],\n    \"Calories\": 200\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/items/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Item",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Item_name\": \"Banana\",\n    \"Store_name\": \"Trader Joe's\",\n    \"Price\": 0.7,\n    \"Ingredients\": [\"Banana\"],\n    \"Calories\": 250\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/items/670eeef8016ac373e685b6a6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"670eeef8016ac373e685b6a6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/items/670eec2472c54abe8940629f?Content-Type=application/json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"items",
+						"670eec2472c54abe8940629f"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

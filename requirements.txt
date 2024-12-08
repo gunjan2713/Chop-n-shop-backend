@@ -1,0 +1,13 @@
+pymongo
+python-dotenv
+pandas
+uuid
+uvicorn
+fastapi
+openai
+bcrypt
+faiss-cpu
+sentence_transformers
+scipy
+passlib
+pyjwt

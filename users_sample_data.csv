@@ -1,0 +1,8 @@
+_id,First_name,Email,Budget,Dietary_restrictions,Allergies,Food_request,Preferred_stores
+67044483b9c2ac3499945950,Bob,bob@gmail.com,30.0,"['Vegan', 'Vegetarian']","['Peanuts', 'Fish']","['pizza', 'sandwich']","['Trader Joes', 'Wegmans']"
+6704500f30d76813016565fd,Emma,emma@gmail.com,40.0,[],[],"['pasta', 'snacks']",['Wegmans']
+670452810fd21996425cbf6b,Steve,steve2927@gmail.com,53.0,['Vegan'],[],['salad'],[]
+67045302234be6469e0cc442,Amy,amy22332@gmail.com,35.0,['Kosher'],['Dairy'],"['stew', 'chips', 'popcorn', 'fruits']",['Whole Foods']
+670453643032a399358ac018,Sarah,sarah@gmail.com,47.0,['Halal'],[],"['soup', 'salad', 'pasta']",[]
+67047b69e8b55eb331670d0d,Adam,adam@gmail.com,40.0,[],[],['pizza'],['Wegmans']
+6704a1886c41fa011757b9e7,Tiffany,tiff@gmail.com,60.0,['Vegan'],[],"['ramen', 'rice']",['Whole Foods']

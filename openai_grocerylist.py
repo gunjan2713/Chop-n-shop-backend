@@ -78,45 +78,12 @@ def is_item_valid(item, dietary_preferences, allergens):
     # Allergen check
     return check_allergen_suitability(ingredients, allergens)
 
-# Search for items in the FAISS index by query and refine with OpenAI
+# Search for items in the FAISS index by query
 def search_items_by_query_faiss(query):
     query_embedding = generate_embedding(query)
-    _, indices = faiss_index.search(np.array([query_embedding], dtype=np.float32), k=10)
-    results = [items_collection.find_one({"_id": ObjectId(item_ids[idx])}) for idx in indices[0] if idx < len(item_ids)]
-    return refine_with_openai(query, results)
+    _, indices = faiss_index.search(np.array([query_embedding], dtype=np.float32), k=100)
+    return [items_collection.find_one({"_id": ObjectId(item_ids[idx])}) for idx in indices[0] if idx < len(item_ids)]
 
-def refine_with_openai(query, faiss_results):
-    """
-    Use OpenAI to refine and select the best match from FAISS query results.
-    """
-    try:
-        # Construct the prompt for OpenAI
-        messages = [
-            {"role": "system", "content": "You are a professional item selector."},
-            {"role": "user", "content": f"Based on the user's query '{query}', and the following items:\n"}
-        ]
-        for item in faiss_results:
-            messages.append({"role": "user", "content": f"Item: {item['Item_name']}, Price: {item['Price']}"})
-        messages.append({"role": "user", "content": "Select the best matching item by returning only its Item_name."})
-
-        response = openai.chat.completions.create(
-            model="gpt-4",
-            messages=messages,
-            max_tokens=150,
-            temperature=0.7
-        )
-
-        # Extract the best match from OpenAI's response
-        best_match_name = response.choices[0].message.content.strip()
-        
-        # Find the corresponding item in faiss_results
-        best_match_item = next((item for item in faiss_results if item['Item_name'] == best_match_name), None)
-        
-        return best_match_item
-    except Exception as e:
-        print(f"Error refining results with OpenAI: {e}")
-        return None
-    
 # Generate grocery list based on user preferences
 def generate_grocery_list(user_preferences):
     grocery_lists = {"Trader Joe's": [], "Whole Foods Market": []}
@@ -125,17 +92,19 @@ def generate_grocery_list(user_preferences):
 
     for store in grocery_lists.keys():
         for request in user_preferences["Grocery_items"]:
-            refined_item = search_items_by_query_faiss(request)
+            query_results = search_items_by_query_faiss(request)
 
-            if refined_item and refined_item.get("Store_name") == store:
-                if not is_item_valid(refined_item, user_preferences["Dietary_preferences"], user_preferences["Allergies"]):
-                    continue
+            for item in query_results:
+                if item and item.get("Store_name") == store:
+                    if not is_item_valid(item, user_preferences["Dietary_preferences"], user_preferences["Allergies"]):
+                        continue
 
-                item_price = float(refined_item.get("Price", 0))
-                if total_costs[store] + item_price <= user_preferences["Budget"]:
-                    grocery_lists[store].append(refined_item)
-                    selected_categories[store].add(refined_item.get("Category", "unknown"))
-                    total_costs[store] += item_price
+                    item_price = float(item.get("Price", 0))
+                    if total_costs[store] + item_price <= user_preferences["Budget"]:
+                        grocery_lists[store].append(item)
+                        selected_categories[store].add(item.get("Category", "unknown"))
+                        total_costs[store] += item_price
+                        break
 
     # Format grocery lists into JSON format
     formatted_lists = {}
@@ -150,6 +119,8 @@ def generate_grocery_list(user_preferences):
             ],
             "Total_Cost": round(total_costs[store], 2),
         }
+    # Save the result to the MongoDB grocery_list collection
+    # grocery_lists_collection.insert_one(grocery_lists)  # Insert the grocery list as a JSON document
 
     # Return lists based on store preference
     if user_preferences.get("Store_preference"):
@@ -169,32 +140,11 @@ user_preferences = {
     "Store_preference": None, 
 }
 
-# Generate grocery list
+# # Generate grocery list
 grocery_lists = generate_grocery_list(user_preferences)
 
-# Save the result to the MongoDB grocery_list collection
-# grocery_lists_collection.insert_one(grocery_lists)  # Insert the grocery list as a JSON document
+# # Save the result to the MongoDB grocery_list collection
+#grocery_lists_collection.insert_one(grocery_lists)  # Insert the grocery list as a JSON document
 
-# Print confirmation
-#print("Grocery list saved to the database successfully!")
-
-# Print a brief summary of the generated grocery list
-# Print a brief summary of the generated grocery list
-# Print a brief summary of the generated grocery list
-print("Generated grocery list structure:")
-print(grocery_lists)
-
-try:
-    if isinstance(grocery_lists, dict):
-        total_items = sum(len(store_list.get('items', [])) for store_list in grocery_lists.values())
-        total_cost = sum(store_list.get('Total_Cost', 0) for store_list in grocery_lists.values())
-        store_names = ', '.join(grocery_lists.keys())
-        print(f"Generated a grocery list with {total_items} items for {store_names}, totaling ${total_cost:.2f}.")
-    else:
-        print("The generated grocery list is not in the expected format.")
-        print(f"Type of grocery_lists: {type(grocery_lists)}")
-        print(f"Content of grocery_lists: {grocery_lists}")
-except Exception as e:
-    print(f"An error occurred while summarizing the grocery list: {str(e)}")
-    print(f"Type of grocery_lists: {type(grocery_lists)}")
-    print(f"Content of grocery_lists: {grocery_lists}")
+# # Print confirmation
+print("Grocery list saved to the database successfully!")

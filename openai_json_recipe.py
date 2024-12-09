@@ -24,7 +24,7 @@ def generate_recipe(prompt):
     """
     try:
         response = openai.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a professional recipe generator."},
                 {"role": "user", "content": f"Create a detailed recipe based on the following request: {prompt}. "

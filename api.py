@@ -167,7 +167,7 @@ async def generate_recipe_with_grocery_list(
 
         # Step 3: Save the grocery list with user ID
         recipe_list_document = {
-            "list_name": recipe_request.list_name or f"Recipe List for {recipe_request.recipe_name}",
+            "list_name": recipe_request.list_name or f"{recipe_request.recipe_name}",
             "recipe_name": recipe_request.recipe_name,
             "recipe_id": str(recipe_id),
             "grocery_list": grocery_list,

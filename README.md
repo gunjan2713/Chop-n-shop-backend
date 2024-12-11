@@ -1,5 +1,5 @@
-# Chop N' Shop Week 9: Full Stack
-This is prototype fullstack application for Chop N' Shop, our grocery shopping assistant. We integrated several of our **FastAPI** endpoints with our **MongoDB** database and Frontend components. This prototype will allow you to register a new user, authenticate an existing user, and retrieve a recipe.
+# Welcome to the Chop N' Shop Backend
+This is backend of our prototype fullstack application for Chop N' Shop, our grocery shopping assistant. We integrated several of our **FastAPI** endpoints with our **MongoDB** database and Frontend components. This prototype will allow you to register a new user, authenticate an existing user, and retrieve a recipe.
 
 ## Setting Up & Running Instructions
 ### Backend Setup
@@ -41,6 +41,10 @@ The API docs for testing are available at:
   http://127.0.0.1:8000/docs
   or http://localhost:8000/docs
 
+#### 6. Connecting with the Backend
+Please start the frontend api (https://github.com/Sreya-Mandalika/chop-n-shop-frontend) and make sure to follow the setup instructions to make sure its running simultaneously with the backend.
+
+
 ## Current API Endpoints
 ### User Endpoints (Testable):
 - `POST /register/`: registers a new user by adding them to the database.
@@ -67,7 +71,7 @@ The API docs for testing are available at:
 ![WireFrame](Wireframe.jpg)
 
 --------------------------------------
-# Chop N' Shop Week 6: API
+# Further API Documentation
 
 We used **FastAPI** and **MongoDB** to create an API for managing a list of grocery items. This API allows you to create, view, update, and delete **items** in a database. Each item includes a name, its store, price, applicable ingredients, and a calorie count.
 

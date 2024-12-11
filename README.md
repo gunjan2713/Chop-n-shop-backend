@@ -1,3 +1,6 @@
+# Link to our Application: 
+https://chop-n-shop-frontend-3-534070775559.us-central1.run.app/
+
 # Welcome to the Chop N' Shop Backend
 This is backend of our prototype fullstack application for Chop N' Shop, our grocery shopping assistant. We integrated several of our **FastAPI** endpoints with our **MongoDB** database and Frontend components. This prototype will allow you to register a new user, authenticate an existing user, and retrieve a recipe.
 
